@@ -1,0 +1,212 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{graphicx}
+\usepackage{subfig}
+\graphicspath{{./figures}}
+
+\usefonttheme{professionalfonts}
+
+\usetheme{CambridgeUS}
+\setbeamertemplate{caption}[numbered]
+
+\title[REvil]{Анализ киберпреступной группировки REvil}
+\author[Фирсов, Голуб, Афонин]{Фирсов Г. В., Голуб С. А., Афонин В. Д.}
+\date{21.05.2022}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Содержание доклада}
+    \tableofcontents
+\end{frame}
+
+\section{Общая информация}
+\begin{frame}{Введение}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.7\textwidth]{revil-logo.jpg}
+    \end{figure}
+    \begin{itemize}
+        \item Название исходит от слов Ransomware Evil
+        \item Альтернативное название группировки --- Sodinokibi
+        \item Группировку можно считать подгруппой GOLD SOUTHFIELD
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Сходство с DarkSide}
+    \begin{itemize}
+        \item Kод, используемый DarkSide, напоминает код, используемый REvil
+        \item Записки с требованием выкупа составлены почти одинаково
+    \end{itemize}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{ransomware-02.png}
+        \caption{Записка с требованием выкупа REvil.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Сходство с DarkSide}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{ransomware-01.png}
+        \caption{Записка с требованием выкупа DarkSide.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Сайт группировки}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{revil-website.png}
+        \caption{Сайт блога группировки REvil.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Атака на Quanta Computer (апрель 2021)}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{makbok.png}
+        \caption{Чертежи компонентов MacBook.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Атака на JBS S.A. (май 2021)}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{jbs.png}
+        \caption{Проценты доходов компании от стран.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Атака на Kaseya (июль 2021)}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{kaseya.png}
+        \caption{Этапы атаки на компанию Kaseya.}
+    \end{figure}
+\end{frame}
+
+\section{Тактики и техники}
+\begin{frame}{Command and Scripting Interpreter: Visual Basic (T1059.005)}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[width=0.95\textwidth]{obfuscated-vba.png}
+        \caption{Обфусцированный код на языке VBA.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Process Injection (T1055)}
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[height=0.7\textheight]{dll-injection.png}
+        \caption{Общая схема атаки внедрения DLL.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Прочие тактики и техники}
+    \begin{itemize}
+        \item Access Token Manipulation: Token Impersonation/Theft (T1134.001)
+        \item Access Token Manipulation: Create Process with Token (T1134.002)
+        \item Command and Scripting Interpreter: PowerShell (T1059.001)
+        \item User Execution: Malicious File (T1204.002)
+        \item ...
+    \end{itemize}
+\end{frame}
+
+\section{Обнаружение группировки}
+\begin{frame}{Арест (январь 2022)}
+    14 января 2022 года в ходе спецоперации ФСБ и МВД России, проведённой по запросу властей США, деятельность группировки была пресечена.
+    \begin{figure}[h!]
+        \centering
+        \subfloat[Арест участника группировки.]{
+            \centering
+            \includegraphics[width=0.45\textwidth]{arrest-01.jpg}
+        }
+        \subfloat[Суд участника группировки.]{
+            \centering
+            \includegraphics[width=0.45\textwidth]{arrest-02.jpg}
+        }
+        \caption{Задержание и суд участников группировки.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Возвращение (апрель 2022)}
+    19 апреля ИБ-специалисты pancak3 и Soufiane Tahiri первыми заметили активность сайтов REvil.
+    \begin{figure}[h!]
+        \centering
+        \includegraphics[height=0.6\textheight]{revil-blog.png}
+        \caption{Активный сайт блога REvil на момент 21.05.2022.}
+    \end{figure}
+\end{frame}
+
+\section{Меры защиты от группировки}
+\begin{frame}{Общие рекомендации}
+    \begin{itemize}
+        \item Регулярно устанавливайте патчи безопасности. В частности, касающиеся уязвимости Bluekeep (уязвимость в реализации Microsoft Remote Desktop Protocol, позволяющая осуществить удалённое выполнение кода) ссылки на RDP-атаки: CVE-2019-0708 и CVE-2019-1181.
+        \item По возможности выключайте RDP или используйте очень сложные пароли, так как злоумышленники используют сервисы брутфорса, доступные в даркнете.
+        \item Фильтруйте почту по наличию в содержимом исполняемых файлов.
+        \item Всегда храните проверенный бэкап наиболее критических данных.
+        \item Проводите регулярные учебные мероприятия с сотрудниками с целью повышения уровня культуры информационной безопасности в коллективе.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{MITRE D3FEND}
+    \begin{itemize}
+        \item \textit{Использование приманок}.
+            \begin{itemize}
+                \item сессионные токены (D3-DST)
+                \item аутентификационные данные пользователей (D3-DUC)
+                \item файлы (D3-DF)
+            \end{itemize}
+        \item \textit{Анализ запущеных и готовящихся к запуску процессов}.
+            \begin{itemize}
+                \item Анализ системных вызовов и настройка правил их фильтрации на уровне ядра (D3-SCA).
+                \item Проведение попыток обнаружения самомодификации процессов (D3-PSMD).
+                \item Проверка подписи исполняемых файлов (D3-EAL)
+                \item ...
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{MITRE D3FEND (продолжение)}
+    \begin{itemize}
+        \item \textit{Мероприятия по обеспечению безопасности интернет-соединения}.
+            \begin{itemize}
+                \item анализ метаданных запросов (D3-PMAD)
+                \item проверка сертификатов (D3-CA)
+                \item анализ URL (D3-UA)
+                \item ...
+            \end{itemize}
+        \item \textit{Анализ файлов}.
+            \begin{itemize}
+                \item проведение динамического анализа ПО
+                \item запуск программ в контроллируемых условиях (D3-DA).
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Заключение}
+\begin{frame}{Заключение}
+    \textit{Основые используемые хакерами тактики и техники}:
+    \begin{itemize}
+        \item повышение привелегий
+        \item запуск процессов от чужого имени
+        \item использование вредоносного кода, написанного на VBA
+    \end{itemize}
+    и другие.
+
+    \vspace{0.5cm}
+
+    \textit{Основные методы и способы защиты от целенаправленных атак}:
+    \begin{itemize}
+        \item регулярная установка обновлений и исправлений системы безопасности
+        \item корректная настройка групповых политик
+        \item проведение учебных мероприятий персонала
+    \end{itemize}
+    и другие.
+\end{frame}
+
+\end{document}

@@ -1,4 +1,4 @@
-.*
+**/.*
 !.gitignore
 **/*.aux
 **/*.log
@@ -7,4 +7,4 @@
 **/*.toc
 **/*.blg
 **/*.bbl
-Makefile
+**/Makefile

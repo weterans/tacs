@@ -9,7 +9,7 @@
 
 \usefonttheme{professionalfonts}
 
-\usetheme{CambridgeUS}
+\usetheme{EastLansing}
 \setbeamertemplate{caption}[numbered]
 
 \title[REvil]{Анализ киберпреступной группировки REvil}
@@ -28,12 +28,13 @@
 \begin{frame}{Введение}
     \begin{figure}[h!]
         \centering
-        \includegraphics[width=0.7\textwidth]{revil-logo.jpg}
+        \includegraphics[width=0.6\textwidth]{revil-logo.jpg}
     \end{figure}
     \begin{itemize}
         \item Название исходит от слов Ransomware Evil
         \item Альтернативное название группировки --- Sodinokibi
         \item Группировку можно считать подгруппой GOLD SOUTHFIELD
+        \item Впервые вирус был идентифицирован в апреле 2019
     \end{itemize}
 \end{frame}
 
@@ -90,7 +91,7 @@
 \end{frame}
 
 \section{Тактики и техники}
-\begin{frame}{Command and Scripting Interpreter: Visual Basic (T1059.005)}
+\begin{frame}{Интерпретатор скриптов или оболочка командной строки: Visual Basic (T1059.005)}
     \begin{figure}[h!]
         \centering
         \includegraphics[width=0.95\textwidth]{obfuscated-vba.png}
@@ -98,7 +99,7 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Process Injection (T1055)}
+\begin{frame}{Внедрение в процессы (T1055)}
     \begin{figure}[h!]
         \centering
         \includegraphics[height=0.7\textheight]{dll-injection.png}
@@ -108,10 +109,10 @@
 
 \begin{frame}{Прочие тактики и техники}
     \begin{itemize}
-        \item Access Token Manipulation: Token Impersonation/Theft (T1134.001)
-        \item Access Token Manipulation: Create Process with Token (T1134.002)
-        \item Command and Scripting Interpreter: PowerShell (T1059.001)
-        \item User Execution: Malicious File (T1204.002)
+        \item Манипулирование маркерами доступа: имперсонация/кража маркера (T1134.001)
+        \item Манипулирование маркерами доступа: создание процесса с использованием чужого маркера (T1134.002)
+        \item Интерпретатор командной строки: PowerShell (T1059.001)
+        \item Пользовательский запуск: вредоносный файл (T1204.002)
         \item ...
     \end{itemize}
 \end{frame}
